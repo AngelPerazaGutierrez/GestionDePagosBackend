@@ -10,7 +10,7 @@ class Empresa(Base):
 
     # Relación con la tabla de bancos REVISAR LAS RELACIONES
     banco = relationship("Banco", back_populates="banco_info")
-    tipo_cuenta = Column(Integer, nullable = False)
+    tipo_cuenta = Column(String, nullable = False)
     numero_cuenta = Column(Integer, nullable = False)
     # Relación con la tabla de Ciudad
     ciudad = relationship("Ciudad", back_populates="")
