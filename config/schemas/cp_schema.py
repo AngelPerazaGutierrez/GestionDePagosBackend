@@ -1,10 +1,10 @@
-from datetime import datetime
+from datetime import date
 from pydantic import BaseModel
 
 
 class CrearCp(BaseModel):
     adjuntos: str
-    fecha: datetime =datetime.now()
+    fecha: date
     ciudad: str
     nit: int
     tercero: str

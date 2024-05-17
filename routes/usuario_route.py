@@ -18,8 +18,8 @@ def get_db():
 
 
 
-@usuario.get("/listar-usuario", response_model=List[GestionDePagosBackend.config.schemas.usuario_schema.Usuario])
-async def obtener_usuarios(db:Session=Depends(get_db)):
-    usuarios = db.query(GestionDePagosBackend.models.usuario_model.Usuario).all()
-    usuarios.reverse()
-    return usuarios
+# @usuario.get("/listar-usuario", response_model=List[GestionDePagosBackend.config.schemas.usuario_schema.Usuario])
+# async def obtener_usuarios(db:Session=Depends(get_db)):
+#     usuarios = db.query(GestionDePagosBackend.models.usuario_model.Usuario).all()
+#     usuarios.reverse()
+#     return usuarios

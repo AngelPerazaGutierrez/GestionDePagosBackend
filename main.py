@@ -31,7 +31,6 @@ app.include_router(empresa)
 app.include_router(usuario)
 
 
-
 @app.get("/")
 def prim():
     return "Aplicacion funcionando en '/' "
