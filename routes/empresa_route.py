@@ -15,3 +15,10 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+@empresa.get("/listar-empresa", response_model=List[GestionDePagosBackend.config.schemas.empresa_schema.Empresa])
+async def obtener_empresas(db:Session=Depends(get_db)):
+    empresas = db.query(GestionDePagosBackend.models.empresa_model.Empresa).all()
+    empresas.reverse()
+    return empresas

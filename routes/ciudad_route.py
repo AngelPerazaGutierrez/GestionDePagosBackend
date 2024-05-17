@@ -15,3 +15,10 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+@ciudad.get("/listar-ciudad", response_model=List[GestionDePagosBackend.config.schemas.ciudad_schema.Ciudad])
+async def obtener_cps(db:Session=Depends(get_db)):
+    ciudades = db.query(GestionDePagosBackend.models.ciudad_model.Ciudad).all()
+    ciudades.reverse()
+    return ciudades

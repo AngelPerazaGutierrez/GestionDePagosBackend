@@ -14,3 +14,10 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+@banco_info.get("/listar-banco_info", response_model=List[GestionDePagosBackend.config.schemas.banco_info_schema.BancoInfo])
+async def obtener_bancos_info(db:Session=Depends(get_db)):
+    bancos_info = db.query(GestionDePagosBackend.models.banco_info_model.BancoInfo).all()
+    bancos_info.reverse()
+    return bancos_info
