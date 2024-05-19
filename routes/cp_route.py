@@ -17,7 +17,7 @@ def get_db():
         db.close()
 
 
-@cp.get("/listar-cp", response_model=List[GestionDePagosBackend.config.schemas.cp_schema.Cp])
+@cp.get("/listar-todo", response_model=List[GestionDePagosBackend.config.schemas.cp_schema.Cp])
 async def obtener_cps(db:Session=Depends(get_db)):
     cps = db.query(GestionDePagosBackend.models.cp_model.Cp).all()
     cps.reverse()

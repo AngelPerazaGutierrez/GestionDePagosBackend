@@ -1,16 +1,15 @@
-from sqlalchemy import String, Column, Integer
+from sqlalchemy import String, Column, Integer, Enum
 from sqlalchemy.orm import relationship
 from GestionDePagosBackend.config.db import Base
+from GestionDePagosBackend.enum.tipo_cuenta_enum import Tipo_Cuenta
+
 
 class Empresa(Base):
     __tablename__ = "empresa"
     id = Column(Integer, index=True, nullable=False, autoincrement=True )
     nit = Column(Integer, primary_key=True, nullable=False)
-    nombre = Column(String(50),nullable=False)
-
-    # Relación con la tabla de bancos REVISAR LAS RELACIONES
-    banco = relationship("Banco", back_populates="banco_info")
-    tipo_cuenta = Column(String, nullable = False)
-    numero_cuenta = Column(Integer, nullable = False)
-    # Relación con la tabla de Ciudad
-    ciudad = relationship("Ciudad", back_populates="")
+    nombre_empresa = Column(String(50), nullable=False)
+    tipo_cuenta1 = Column(Enum(Tipo_Cuenta), nullable=False)
+    nombre_banco1 = Column(String, nullable=False)
+    numero_cuenta1 = Column(Integer, nullable=False)
+    ciudad = Column(String, nullable=False)

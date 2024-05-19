@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from routes.cp_route import cp
-from routes.banco_info_route import banco_info
 from routes.banco_route import banco
 from routes.ciudad_route import ciudad
 from routes.empresa_route import empresa
@@ -24,7 +23,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(cp)
-app.include_router(banco_info)
 app.include_router(banco)
 app.include_router(ciudad)
 app.include_router(empresa)
@@ -33,4 +31,4 @@ app.include_router(usuario)
 
 @app.get("/")
 def prim():
-    return "Aplicacion funcionando en '/' "
+    return "Aplicacion funcionando en localHost"
