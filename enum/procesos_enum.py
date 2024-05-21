@@ -2,7 +2,7 @@ from enum import Enum as PyEnum
 
 
 class Procesos(PyEnum):
-    FINANCIERA = "Financiera"
-    GERENCIA = "Gerencia"
-    NOMINA = "Nomina"
-    TESORERIA = "Tesoreria"
+    Financiera = "Financiera"
+    Gerencia = "Gerencia"
+    Nomina = "Nomina"
+    Tesoreria = "Tesoreria"

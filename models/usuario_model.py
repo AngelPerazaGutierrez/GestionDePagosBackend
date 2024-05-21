@@ -6,8 +6,8 @@ from GestionDePagosBackend.enum.procesos_enum import Procesos
 
 class Usuario(Base):
     __tablename__ = "usuario"
-    id = Column(Integer, index=True, nullable=False, autoincrement=True)
-    cedula = Column(Integer(11), primary_key=True, nullable=False)
+    id = Column(Integer, index=True, primary_key=True, nullable=False, autoincrement=True)
+    cedula = Column(Integer)
     nombre = Column(String(30), nullable=False)
     apellido = Column(String(30), nullable=False)
     email = Column(String, nullable=False)
