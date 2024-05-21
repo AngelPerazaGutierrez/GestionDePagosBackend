@@ -24,7 +24,7 @@ async def obtener_usuarios(db:Session=Depends(get_db)):
     usuarios.reverse()
     return usuarios
 
-#holaasdsa
+#holaasdsaadsadsa
 @usuario.put("/editar-usuario/{usuario_cedula}", response_model=GestionDePagosBackend.config.schemas.usuario_schema.Usuario)
 async def editar_usuario(usuario_cedula: int, usuario: GestionDePagosBackend.config.schemas.usuario_schema.Usuario,
                     db: Session = Depends(get_db)):
