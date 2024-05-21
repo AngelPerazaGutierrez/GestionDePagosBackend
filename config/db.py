@@ -7,5 +7,6 @@ URL_DATABASE = "mysql+pymysql://root:@localhost:3306/database_cp"
 engine = create_engine(URL_DATABASE)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
+# Base.metadata.create_all(bind=engine) No esta posteando los encabezados de la db
 
 

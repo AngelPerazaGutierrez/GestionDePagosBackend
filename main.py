@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from routes.cp_route import cp
-# from routes.banco_route import banco
+from routes.banco_route import banco
 from routes.ciudad_route import ciudad
 from routes.empresa_route import empresa
-# from routes.usuario_route import usuario
+from routes.usuario_route import usuario
 
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,7 +12,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost",
-    "http://localhost:3000",
+    "http://localhost:5173",
 ]
 
 app.add_middleware(
@@ -23,10 +23,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(cp)
-# app.include_router(banco)
+app.include_router(banco)
 app.include_router(ciudad)
 app.include_router(empresa)
-# app.include_router(usuario)
+app.include_router(usuario)
 
 
 @app.get("/")
