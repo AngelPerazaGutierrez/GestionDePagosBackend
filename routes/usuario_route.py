@@ -5,6 +5,8 @@ from GestionDePagosBackend.config.db import SessionLocal
 from typing import List
 import GestionDePagosBackend.config.schemas.usuario_schema
 import GestionDePagosBackend.models.usuario_model
+from GestionDePagosBackend.config.schemas.usuario_schema import CrearUsuario
+
 
 usuario = APIRouter(prefix="/usuario")
 
@@ -17,14 +19,13 @@ def get_db():
         db.close()
 
 
-
 @usuario.get("/listar-usuario", response_model=List[GestionDePagosBackend.config.schemas.usuario_schema.Usuario])
 async def obtener_usuarios(db:Session=Depends(get_db)):
     usuarios = db.query(GestionDePagosBackend.models.usuario_model.Usuario).all()
     usuarios.reverse()
     return usuarios
 
-#holaasdsaadsadsa
+
 @usuario.put("/editar-usuario/{usuario_cedula}", response_model=GestionDePagosBackend.config.schemas.usuario_schema.Usuario)
 async def editar_usuario(usuario_cedula: int, usuario: GestionDePagosBackend.config.schemas.usuario_schema.Usuario,
                     db: Session = Depends(get_db)):
@@ -48,7 +49,7 @@ async def editar_usuario(usuario_cedula: int, usuario: GestionDePagosBackend.con
 
 
 @usuario.post("/registrar-usuario")
-async def agregar_usuario(banco: GestionDePagosBackend.config.schemas.usuario_schema.CrearUsuario, db: Session = Depends(get_db)):
+async def agregar_usuario(usuario: GestionDePagosBackend.config.schemas.usuario_schema.CrearUsuario, db: Session = Depends(get_db)):
     db_usuario = GestionDePagosBackend.models.usuario_model.Usuario(**usuario.dict())
     db.add(db_usuario)
     db.commit()

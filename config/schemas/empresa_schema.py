@@ -1,8 +1,8 @@
-import enum
 from pydantic import BaseModel
 
 
 class CrearEmpresa(BaseModel):
+    nit: int
     nombre_empresa: str
     tipo_cuenta1: str
     nombre_banco1: str
@@ -14,5 +14,5 @@ class Empresa(CrearEmpresa):
     nit: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 

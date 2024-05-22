@@ -3,8 +3,10 @@ from fastapi.params import Depends
 from sqlalchemy.orm.session import Session
 from GestionDePagosBackend.config.db import SessionLocal
 from typing import List
-import GestionDePagosBackend.config.schemas.ciudad_schema
-import GestionDePagosBackend.models.ciudad_model
+import GestionDePagosBackend
+from GestionDePagosBackend.config.schemas.ciudad_schema import Ciudad
+from GestionDePagosBackend.models.ciudad_model import Ciudad
+
 
 ciudad = APIRouter(prefix="/ciudad")
 
@@ -35,7 +37,7 @@ async def editar_ciudad(ciudad_id: int, ciudad: GestionDePagosBackend.config.sch
 
         db.query(GestionDePagosBackend.models.ciudad_model.Ciudad).filter(GestionDePagosBackend.models.ciudad_model.Ciudad.id == ciudad_id).update({
             "pais": ciudad.pais,
-            "ciudad": ciudad.ciudad
+            "ciudadnombre": ciudad.ciudadnombre
         })
         db.commit()
 

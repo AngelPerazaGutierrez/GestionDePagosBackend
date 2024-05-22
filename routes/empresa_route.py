@@ -53,6 +53,7 @@ async def agregar_empresa(empresa: GestionDePagosBackend.config.schemas.empresa_
     db.refresh(db_empresa)
     return db_empresa
 
+
 @empresa.delete("/eliminar-empresa/{empresa_id}")
 async def eliminar_empresa(empresa_id: int, db: Session = Depends(get_db)):
     db_empresa = db.query(GestionDePagosBackend.models.empresa_model.Empresa).filter(

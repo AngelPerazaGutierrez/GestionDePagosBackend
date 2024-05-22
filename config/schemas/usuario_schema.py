@@ -3,15 +3,18 @@ from pydantic import BaseModel
 
 
 class CrearUsuario(BaseModel):
-    nombre = str
-    apellido = str
-    email = str
-    password = str
-    fecha_creacion = date
-    proceso = str
-    id = int
-class Usuario(CrearUsuario):
     cedula: int
+    nombre: str
+    apellido: str
+    email: str
+    password: str
+    fecha_creacion: date
+    proceso: str
+
+
+class Usuario(CrearUsuario):
+    id: int
+
 
     class Config:
-        orm_mode = True
+        from_attributes = True
