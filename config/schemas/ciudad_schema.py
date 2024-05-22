@@ -1,12 +1,14 @@
 from pydantic import BaseModel
 
+
 class CrearCiudad(BaseModel):
     pais: str
-    ciudad: str
+    ciudadnombre: str
+
 
 class Ciudad(CrearCiudad):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 

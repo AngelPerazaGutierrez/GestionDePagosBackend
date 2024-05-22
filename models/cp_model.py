@@ -1,6 +1,5 @@
-from sqlalchemy import String, Column, Integer, Date, LargeBinary, create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
-from GestionDePagosBackend.config.db import Base, URL_DATABASE, SessionLocal
+from sqlalchemy import String, Column, Integer, Date
+from GestionDePagosBackend.config.db import Base
 
 
 class Cp(Base):
