@@ -19,21 +19,22 @@ def get_db():
 
 @empresa.get("/listar-empresa", response_model=List[GestionDePagosBackend.config.schemas.empresa_schema.Empresa])
 async def obtener_empresas(db:Session=Depends(get_db)):
-    empresas = db.query(GestionDePagosBackend.models.empresa_model.Empresa).all()
-    empresas.reverse()
-    return empresas
+    empresa = db.query(GestionDePagosBackend.models.empresa_model.Empresa).all()
+    empresa.reverse()
+    return empresa
 
 
-@empresa.put("/editar-empresa/{empresa_nit}", response_model=GestionDePagosBackend.config.schemas.empresa_schema.Empresa)
-async def editar_empresa(empresa_nit: int, empresa: GestionDePagosBackend.config.schemas.empresa_schema.Empresa,
+@empresa.put("/editar-empresa/{empresa_id}", response_model=GestionDePagosBackend.config.schemas.empresa_schema.Empresa)
+async def editar_empresa(empresa_id: int, empresa: GestionDePagosBackend.config.schemas.empresa_schema.Empresa,
                     db: Session = Depends(get_db)):
         db_empresa = db.query(GestionDePagosBackend.models.empresa_model.Empresa).filter(
-            GestionDePagosBackend.models.empresa_model.Empresa.nit == empresa_nit).first()
+            GestionDePagosBackend.models.empresa_model.Empresa.id == empresa_id).first()
 
         if not db_empresa:
             raise HTTPException(status_code=404, detail="Empresa no encontrada")
 
-        db.query(GestionDePagosBackend.models.empresa_model.Empresa).filter(GestionDePagosBackend.models.empresa_model.Empresa.nit == empresa_nit).update({
+        db.query(GestionDePagosBackend.models.empresa_model.Empresa).filter(GestionDePagosBackend.models.empresa_model.Empresa.id == empresa_id).update({
+            "nit": empresa.nit,
             "nombre_empresa": empresa.nombre_empresa,
             "tipo_cuenta1": empresa.tipo_cuenta1,
             "nombre_banco1": empresa.nombre_banco1,

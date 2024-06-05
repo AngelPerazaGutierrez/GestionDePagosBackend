@@ -6,6 +6,7 @@ from typing import List
 import GestionDePagosBackend.config.schemas.usuario_schema
 import GestionDePagosBackend.models.usuario_model
 from GestionDePagosBackend.config.schemas.usuario_schema import CrearUsuario
+from sqlalchemy.exc import IntegrityError
 
 
 usuario = APIRouter(prefix="/usuario")
@@ -36,7 +37,6 @@ async def editar_usuario(usuario_cedula: int, usuario: GestionDePagosBackend.con
             raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
         db.query(GestionDePagosBackend.models.usuario_model.Usuario).filter(GestionDePagosBackend.models.usuario_model.Usuario.cedula == usuario_cedula).update({
-            "id": usuario.id,
             "nombre": usuario.nombre,
             "apellido": usuario.apellido,
             "password": usuario.password,
@@ -50,11 +50,21 @@ async def editar_usuario(usuario_cedula: int, usuario: GestionDePagosBackend.con
 
 @usuario.post("/registrar-usuario")
 async def agregar_usuario(usuario: GestionDePagosBackend.config.schemas.usuario_schema.CrearUsuario, db: Session = Depends(get_db)):
+    #verifica si la cc ya exite
+    existe_cedula = db.query(GestionDePagosBackend.models.usuario_model.Usuario).filter(
+        GestionDePagosBackend.models.usuario_model.Usuario.cedula == usuario.cedula).first()
+    if existe_cedula:
+        raise HTTPException(status_code=400, detail="El usuario con esta cedula ya existe")
+
     db_usuario = GestionDePagosBackend.models.usuario_model.Usuario(**usuario.dict())
-    db.add(db_usuario)
-    db.commit()
-    db.refresh(db_usuario)
-    return db_usuario
+    try:
+        db.add(db_usuario)
+        db.commit()
+        db.refresh(db_usuario)
+        return db_usuario
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Se produjo un error al intentar crear el usuario.")
 
 
 @usuario.delete("/eliminar-usuario/{usuario_id}")

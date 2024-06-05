@@ -11,7 +11,7 @@ class CrearEmpresa(BaseModel):
 
 
 class Empresa(CrearEmpresa):
-    nit: int
+    id: int
 
     class Config:
         from_attributes = True
