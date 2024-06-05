@@ -15,6 +15,5 @@ class CrearUsuario(BaseModel):
 class Usuario(CrearUsuario):
     id: int
 
-
     class Config:
         from_attributes = True

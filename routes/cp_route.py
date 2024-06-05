@@ -31,6 +31,15 @@ async def obtener_cps(db:Session=Depends(get_db)):
     return cps[:10]
 
 
+@cp.post("/registrar-cp")
+async def agregar_cp(cp: GestionDePagosBackend.config.schemas.cp_schema.CrearCp, db: Session = Depends(get_db)):
+    db_cp = GestionDePagosBackend.models.cp_model.Cp(**cp.dict())
+    db.add(db_cp)
+    db.commit()
+    db.refresh(db_cp)
+    return db_cp
+
+
 @cp.put("/editar-cp/{cp_id}", response_model=GestionDePagosBackend.config.schemas.cp_schema.Cp)
 async def editar_cp(cp_id: int, cp: GestionDePagosBackend.config.schemas.cp_schema.Cp,
                     db: Session = Depends(get_db)):
@@ -55,15 +64,6 @@ async def editar_cp(cp_id: int, cp: GestionDePagosBackend.config.schemas.cp_sche
         db.commit()
 
         return cp
-
-
-@cp.post("/registrar-cp")
-async def agregar_cp(cp: GestionDePagosBackend.config.schemas.cp_schema.CrearCp, db: Session = Depends(get_db)):
-    db_cp = GestionDePagosBackend.models.cp_model.Cp(**cp.dict())
-    db.add(db_cp)
-    db.commit()
-    db.refresh(db_cp)
-    return db_cp
 
 
 @cp.delete("/eliminar-cp/{cp_id}")
