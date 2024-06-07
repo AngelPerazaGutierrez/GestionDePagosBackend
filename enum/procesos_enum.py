@@ -6,3 +6,4 @@ class Procesos(PyEnum):
     Gerencia = "Gerencia"
     Nomina = "Nomina"
     Tesoreria = "Tesoreria"
+    Administrador = "Administrador"
